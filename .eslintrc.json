@@ -1,0 +1,67 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": ["airbnb", "prettier"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react-hooks", "prettier"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "linebreak-style": ["error", "unix"],
+    "jsx-quotes": ["error", "prefer-single"],
+    "react/jsx-props-no-spreading": "off",
+    "arrow-parens": ["error", "as-needed"],
+    "no-unused-vars": [
+      "warn",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": true }
+    ],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": 1,
+    "react/forbid-prop-types": 1,
+    "react/jsx-no-duplicate-props": ["error", { "ignoreCase": false }],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/jsx-curly-newline": "off",
+    "indent": "off",
+    "object-curly-newline": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "func-names": "off",
+    "capitalized-comments": [
+      "error",
+      "always",
+      {
+        "ignoreConsecutiveComments": true
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true
+      }
+    ]
+  },
+  "globals": {
+    "React": "writable"
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
+}
