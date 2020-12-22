@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LandingPage should match snapshot 1`] = `
+<DocumentFragment>
+  <section
+    class="makeStyles-intro-1"
+  >
+    <div
+      class="makeStyles-buttonWrapper-2"
+    >
+      <a
+        class="makeStyles-buttonStyles-3"
+        data-testid="login"
+        role="button"
+        tabindex="0"
+      >
+        <span />
+        <span />
+        <span />
+        <span />
+        Login
+      </a>
+      <a
+        class="makeStyles-buttonStyles-3"
+        data-testid="sign-up"
+        role="button"
+        tabindex="0"
+      >
+        <span />
+        <span />
+        <span />
+        <span />
+        Sign Up
+      </a>
+    </div>
+    <div
+      class="makeStyles-glowWrapper-5"
+    >
+      <h2
+        class="MuiTypography-root makeStyles-glowText-6 MuiTypography-h2"
+      >
+        <span>
+          C
+        </span>
+        <span>
+          A
+        </span>
+        <span>
+          S
+        </span>
+        <span>
+          H
+        </span>
+      </h2>
+      <h2
+        class="MuiTypography-root makeStyles-glowText-6 MuiTypography-h2"
+      >
+        <span>
+          T
+        </span>
+        <span>
+          R
+        </span>
+        <span>
+          A
+        </span>
+        <span>
+          C
+        </span>
+        <span>
+          K
+        </span>
+        <span>
+          E
+        </span>
+        <span>
+          R
+        </span>
+      </h2>
+    </div>
+    <h6
+      class="MuiTypography-root makeStyles-subtitle-8 MuiTypography-subtitle1"
+    >
+      Track Your cash movement with ease
+    </h6>
+    <svg
+      class="makeStyles-curve-7"
+      version="1.1"
+      viewBox="0 0 135.87 41.319"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        transform="translate(5.1618 -101.68)"
+      >
+        <path
+          d="m-5.1618 141.14c43.775-2.0845 72.303-10.174 91.574-20.944 29.649-16.57 47.402-20.394 49.127-17.747 0 0-2.9893 33.247-3.1169 43.982-8.9429 0.47794-56.289 4.3573-98.257 0.54109-6.2059-0.56431-39.326 4.7506-39.326-0.54109z"
+        />
+      </g>
+    </svg>
+  </section>
+</DocumentFragment>
+`;
