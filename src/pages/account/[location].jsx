@@ -20,7 +20,10 @@ export default function Account({ location }) {
   const handleAnimation = () => setShowSignup(!showSignup);
 
   return (
-    <div className={`${classes.container} ${showSignup ? 'animate' : ''}`}>
+    <div
+      data-testid='container'
+      className={`${classes.container} ${showSignup ? 'animate' : ''}`}
+    >
       <div className={classes.formsContainer}>
         <div className={classes.accounts}>
           <LoginForm />
