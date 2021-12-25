@@ -19,6 +19,7 @@ import { useUser } from 'utils/swrHooks';
 import apiRequest from 'utils/apiRequest';
 import { loginEndpoint } from 'constants/endpoints';
 import { unexpected } from 'constants/errorMessages';
+import { signIn } from 'next-auth/react';
 
 const useStyles = makeStyles({
   form: {
@@ -80,14 +81,7 @@ export default function LoginForm() {
       initialValues={{ email: '', password: '' }}
       onSubmit={async values => {
         try {
-          const { response, err } = await apiRequest(loginEndpoint, values);
-          if (response.ok) {
-            const resJson = await response.json();
-            mutate({ user: { ...resJson.user } });
-            router.push('/dashboard');
-          } else {
-            setErrMsg(err);
-          }
+          signIn('credentials', values);
         } catch (err) {
           console.log(err);
           setErrMsg(unexpected);
