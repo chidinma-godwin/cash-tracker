@@ -13,41 +13,30 @@ import { Formik } from 'formik';
 import { string, object } from 'yup';
 import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
-
-// CashTracker Imports
-import { useUser } from 'utils/swrHooks';
-import apiRequest from 'utils/apiRequest';
-import { loginEndpoint } from 'constants/endpoints';
-import { unexpected } from 'constants/errorMessages';
+import PropTypes from 'prop-types';
 import { signIn } from 'next-auth/react';
 
+// CashTracker Imports
+import { dashboardEndpoint } from 'constants/endpoints';
+import { unexpected } from 'constants/errorMessages';
+
 const useStyles = makeStyles({
-  form: {
+  spinner: {
+    marginLeft: '0.7em',
+  },
+  googleButtonContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    background: '#fff',
-    padding: '1rem',
-    borderRadius: '10px',
-    gridRow: '1 / 2',
-    gridColumn: '1 / 2',
-    overflow: 'hidden',
-    transition: '1.5s ease-in-out',
-  },
-  signIn: {
-    zIndex: 2,
-  },
-  spinner: {
-    marginLeft: '0.7em',
+    marginTop: '20px',
   },
 });
 
-export default function LoginForm() {
+export default function LoginForm({ className }) {
   const [showPassword, setShowPassword] = useState(false);
   const [errMsg, setErrMsg] = useState('');
 
-  const { mutate } = useUser();
   const classes = useStyles();
   const router = useRouter();
   const emailRef = useRef(null);
@@ -81,7 +70,11 @@ export default function LoginForm() {
       initialValues={{ email: '', password: '' }}
       onSubmit={async values => {
         try {
-          signIn('credentials', values);
+          signIn('credentials', {
+            ...values,
+            callbackUrl: dashboardEndpoint,
+          });
+          router.push('/dashboard');
         } catch (err) {
           console.log(err);
           setErrMsg(unexpected);
@@ -100,7 +93,7 @@ export default function LoginForm() {
         <form
           data-testid='login-form'
           noValidate
-          className={`${classes.form} ${classes.signIn}`}
+          className={className}
           onSubmit={handleSubmit}
         >
           <h2>Sign In</h2>
@@ -192,8 +185,28 @@ export default function LoginForm() {
               'Login'
             )}
           </Button>
+          <div className={classes.googleButtonContainer}>
+            <p style={{ fontWeight: 'bold' }}>Or</p>
+            <Button
+              type='button'
+              aria-label='sign in with google'
+              variant='contained'
+              color='primary'
+              onClick={() =>
+                signIn('google', {
+                  callbackUrl: dashboardEndpoint,
+                })
+              }
+            >
+              Sign In With Google
+            </Button>
+          </div>
         </form>
       )}
     </Formik>
   );
 }
+
+LoginForm.propTypes = {
+  className: PropTypes.string.isRequired,
+};

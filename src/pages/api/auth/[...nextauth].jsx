@@ -4,13 +4,13 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 // CashTracker Imports
 import apiRequest from 'utils/apiRequest';
-import { loginEndpoint } from 'constants/endpoints';
+import { loginEndpoint, signupEndpoint } from 'constants/endpoints';
 
 export default NextAuth({
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.NEXTAUTH_GOOGLE_ID,
+      clientSecret: process.env.NEXTAUTH_GOOGLE_SECRET,
     }),
     CredentialsProvider({
       name: 'Username and Password',
@@ -38,5 +38,23 @@ export default NextAuth({
     error: '/account/login',
     // NewUser: null // If set, new users will be directed here on first sign in
   },
-  debug: true,
+  callbacks: {
+    async signIn({ user }) {
+      try {
+        const { name, email } = user;
+        const { response } = await apiRequest(signupEndpoint, {
+          name,
+          email,
+          usePassword: false,
+        });
+        if (response.status === 201) {
+          return true;
+        }
+        return false;
+      } catch (err) {
+        return false;
+      }
+    },
+  },
+  debug: false,
 });

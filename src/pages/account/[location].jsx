@@ -17,7 +17,10 @@ export default function Account({ location }) {
 
   const [showSignup, setShowSignup] = useState(queryLocation);
 
-  const handleAnimation = () => setShowSignup(!showSignup);
+  const handleAnimation = url => {
+    setShowSignup(!showSignup);
+    router.push(url);
+  };
 
   return (
     <div
@@ -26,8 +29,11 @@ export default function Account({ location }) {
     >
       <div className={classes.formsContainer}>
         <div className={classes.accounts}>
-          <LoginForm />
-          <SignUpForm />
+          <LoginForm className={`${classes.form} ${classes.signIn}`} />
+          <SignUpForm
+            className={`${classes.form} ${classes.signUp}`}
+            setShowSignup={setShowSignup}
+          />
         </div>
       </div>
       <div className={classes.panelsContainer}>
@@ -43,7 +49,7 @@ export default function Account({ location }) {
             <Button
               variant='outlined'
               classes={{ root: classes.buttonStyles }}
-              onClick={handleAnimation}
+              onClick={() => handleAnimation('signup')}
             >
               Sign Up
             </Button>
@@ -62,7 +68,7 @@ export default function Account({ location }) {
             <Button
               variant='outlined'
               classes={{ root: classes.buttonStyles }}
-              onClick={handleAnimation}
+              onClick={() => handleAnimation('login')}
             >
               Sign In
             </Button>

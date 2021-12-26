@@ -15,12 +15,7 @@ const UserSchema = mongoose.Schema({
     required: [true, 'Your email is required'],
     unique: true,
   },
-  avatar: Buffer,
-  password: {
-    type: String,
-    required: [true, 'Please provide a password'],
-    min: [7, 'Password should have a minimum of 6 characters'],
-  },
+  password: String,
   clientsEmail: [String],
   deletedEmails: [String],
   pendingInvitations: [String],
@@ -32,7 +27,7 @@ UserSchema.plugin(uniqueValidator, {
 });
 
 UserSchema.pre('save', async function () {
-  if (this.isModified(this.password)) {
+  if (this.password && this.isModified(this.password)) {
     this.password = await hash(this.password, 12);
   }
 });

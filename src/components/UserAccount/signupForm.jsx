@@ -12,44 +12,34 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { Formik } from 'formik';
 import { string, object, ref } from 'yup';
-import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+import { signIn } from 'next-auth/react';
 
 // CashTracker imports
-import { signupEndpoint } from 'constants/endpoints';
+import { signupEndpoint, dashboardEndpoint } from 'constants/endpoints';
 import { unexpected } from 'constants/errorMessages';
 import apiRequest from 'utils/apiRequest';
 
 const useStyles = makeStyles({
-  form: {
+  spinner: {
+    marginLeft: '0.7em',
+  },
+  googleButtonContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    background: '#fff',
-    padding: '1rem',
-    borderRadius: '10px',
-    gridRow: '1 / 2',
-    gridColumn: '1 / 2',
-    overflow: 'hidden',
-    transition: '1.5s ease-in-out',
-  },
-  signUp: {
-    opacity: 0,
-    zIndex: 1,
-  },
-  spinner: {
-    marginLeft: '0.7em',
+    marginTop: '20px',
   },
 });
 
-export default function SignUpForm() {
+export default function SignUpForm({ className }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [errMsg, setErrMsg] = useState('');
 
   const classes = useStyles();
-  const router = useRouter();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
 
@@ -102,7 +92,11 @@ export default function SignUpForm() {
         try {
           const { response, err } = await apiRequest(signupEndpoint, values);
           if (response.status === 201) {
-            router.push('/account/login');
+            signIn('credentials', {
+              email: values.email,
+              password: values.password,
+              callbackUrl: dashboardEndpoint,
+            });
           } else if (err) {
             setErrMsg(err);
           }
@@ -123,7 +117,7 @@ export default function SignUpForm() {
         <form
           noValidate
           data-testid='signup-form'
-          className={`${classes.form} ${classes.signUp}`}
+          className={className}
           onSubmit={handleSubmit}
         >
           <h2>Sign Up</h2>
@@ -268,8 +262,26 @@ export default function SignUpForm() {
               'Create account'
             )}
           </Button>
+          <div className={classes.googleButtonContainer}>
+            <p style={{ fontWeight: 'bold' }}>Or</p>
+            <Button
+              type='button'
+              aria-label='sign in with google'
+              variant='contained'
+              color='primary'
+              onClick={() =>
+                signIn('google', { callbackUrl: dashboardEndpoint })
+              }
+            >
+              Sign Up With Google
+            </Button>
+          </div>
         </form>
       )}
     </Formik>
   );
 }
+
+SignUpForm.propTypes = {
+  className: PropTypes.string.isRequired,
+};
