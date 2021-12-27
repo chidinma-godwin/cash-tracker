@@ -3,8 +3,10 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 // CashTracker Imports
-import apiRequest from 'utils/apiRequest';
 import { loginEndpoint, signupEndpoint } from 'constants/endpoints';
+import User from 'models/User';
+import dbConnect from 'utils/dbConnect';
+import apiRequest from 'utils/apiRequest';
 
 export default NextAuth({
   providers: [
@@ -36,21 +38,29 @@ export default NextAuth({
     // NewUser: null // If set, new users will be directed here on first sign in
   },
   callbacks: {
-    async signIn({ user }) {
-      console.info(user);
-      try {
-        const { name, email } = user;
-        const { response } = await apiRequest(signupEndpoint, {
-          name,
-          email,
-          usePassword: false,
-        });
-        if (response.status === 201) {
+    async signIn(data) {
+      const { user, account } = data;
+      if (account.provider === 'google') {
+        try {
+          const { name, email } = user;
+          await dbConnect();
+          const existingUser = await User.findOne({ email });
+          if (!existingUser) {
+            const { ok } = await apiRequest(signupEndpoint, {
+              name,
+              email,
+              usePassword: false,
+            });
+            if (!ok) {
+              return false;
+            }
+          }
           return true;
+        } catch (err) {
+          return false;
         }
-        return false;
-      } catch (err) {
-        return false;
+      } else {
+        return true;
       }
     },
   },

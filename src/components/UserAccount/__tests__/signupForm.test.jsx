@@ -1,13 +1,16 @@
 import userEvent from '@testing-library/user-event';
 import { useRouter } from 'next/router';
 import { Response } from 'miragejs';
+import { signIn } from 'next-auth/react';
 
 // CashTracker imports;
 import { render, waitFor, fireEvent, screen } from 'testUtils';
 import makeServer from 'testUtils/apiMock';
 import { unexpected } from 'constants/errorMessages';
-import { signupEndpoint } from 'constants/endpoints';
+import { dashboardEndpoint, signupEndpoint } from 'constants/endpoints';
 import SignUpForm from '../signupForm';
+
+jest.mock('next-auth/react', () => ({ signIn: jest.fn() }));
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn(),
@@ -24,8 +27,10 @@ describe('SignUp Form', () => {
   beforeEach(() => {
     server = makeServer();
     mockPushSpy.mockRestore();
+    signIn.mockRestore();
     useRouter.mockImplementation(() => ({
       push: mockPushSpy,
+      query: {},
     }));
   });
 
@@ -34,12 +39,12 @@ describe('SignUp Form', () => {
   });
 
   it('matches snapshot', () => {
-    const { asFragment } = render(<SignUpForm />);
+    const { asFragment } = render(<SignUpForm className='' />);
 
-    expect(asFragment(<SignUpForm />)).toMatchSnapshot();
+    expect(asFragment(<SignUpForm className='' />)).toMatchSnapshot();
   });
   it('populates the form with the given values and removes the disabled prop from the submit button', async () => {
-    render(<SignUpForm />);
+    render(<SignUpForm className='' />);
 
     const name = screen.getByLabelText('Username');
     const email = screen.getByLabelText('Email');
@@ -63,7 +68,7 @@ describe('SignUp Form', () => {
     });
   });
   it('sets error on the field if they are touched and left empty and disables the submit button', async () => {
-    render(<SignUpForm />);
+    render(<SignUpForm className='' />);
 
     const name = screen.getByLabelText('Username');
     const email = screen.getByLabelText('Email');
@@ -75,6 +80,9 @@ describe('SignUp Form', () => {
     userEvent.type(email, '');
     userEvent.type(password, '');
     userEvent.type(confirmPassword, '');
+    fireEvent.blur(name);
+    fireEvent.blur(email);
+    fireEvent.blur(password);
     fireEvent.blur(confirmPassword);
 
     // Ensure error message shows
@@ -93,7 +101,7 @@ describe('SignUp Form', () => {
     expect(submitButton).toBeDisabled();
   });
   it('sets error on the field and disables the submit button if they have invalid data', async () => {
-    render(<SignUpForm />);
+    render(<SignUpForm className='' />);
 
     const name = screen.getByLabelText('Username');
     const email = screen.getByLabelText('Email');
@@ -105,6 +113,9 @@ describe('SignUp Form', () => {
     userEvent.type(email, 'test@');
     userEvent.type(password, 'short');
     userEvent.type(confirmPassword, 'different');
+    fireEvent.blur(name);
+    fireEvent.blur(email);
+    fireEvent.blur(password);
     fireEvent.blur(confirmPassword);
 
     // Ensure error message shows
@@ -125,7 +136,7 @@ describe('SignUp Form', () => {
     });
   });
   it('focuses on the input field when the appended icon is clicked', async () => {
-    render(<SignUpForm />);
+    render(<SignUpForm className='' />);
 
     userEvent.click(screen.getByRole('button', { name: /username/i }));
     await waitFor(() => {
@@ -138,7 +149,7 @@ describe('SignUp Form', () => {
     });
   });
   it('toggles the password and confirm password field visibility when the appended icon is clicked', () => {
-    render(<SignUpForm />);
+    render(<SignUpForm className='' />);
 
     const password = screen.getByLabelText('Password');
     const confirmPassword = screen.getByLabelText('Confirm Password');
@@ -155,7 +166,7 @@ describe('SignUp Form', () => {
   });
   it('shows error alert, does not navigate to login page if signup request was not successful, and closes the alert when the close button is clicked', async () => {
     server.post(signupEndpoint, () => new Response(500));
-    render(<SignUpForm />);
+    render(<SignUpForm className='' />);
 
     const name = screen.getByLabelText('Username');
     const email = screen.getByLabelText('Email');
@@ -183,7 +194,8 @@ describe('SignUp Form', () => {
     });
   });
   it('redirects to login page and does not show error alert if signup request was successful', async () => {
-    render(<SignUpForm />);
+    signIn.mockReturnValue({ error: null, ok: true });
+    render(<SignUpForm className='' />);
 
     const name = screen.getByLabelText('Username');
     const email = screen.getByLabelText('Email');
@@ -199,8 +211,20 @@ describe('SignUp Form', () => {
     userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(mockPushSpy).toHaveBeenCalledWith('/account/login');
+      expect(mockPushSpy).toHaveBeenCalledWith(dashboardEndpoint);
     });
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+  it('shows error alert if the url contains an error param', async () => {
+    useRouter.mockReturnValue({
+      push: jest.fn(),
+      query: { error: 'some error' },
+    });
+
+    render(<SignUpForm className='' />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent(unexpected);
+    });
   });
 });

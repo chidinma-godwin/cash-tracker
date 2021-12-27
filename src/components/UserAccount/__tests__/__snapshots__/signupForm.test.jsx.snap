@@ -3,7 +3,7 @@
 exports[`SignUp Form matches snapshot 1`] = `
 <DocumentFragment>
   <form
-    class="makeStyles-form-1 makeStyles-signUp-2"
+    class=""
     data-testid="signup-form"
     novalidate=""
   >
@@ -62,10 +62,10 @@ exports[`SignUp Form matches snapshot 1`] = `
         </div>
         <fieldset
           aria-hidden="true"
-          class="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
+          class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="PrivateNotchedOutline-legendLabelled-6"
+            class="PrivateNotchedOutline-legendLabelled-5"
           >
             <span>
               Username
@@ -126,10 +126,10 @@ exports[`SignUp Form matches snapshot 1`] = `
         </div>
         <fieldset
           aria-hidden="true"
-          class="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
+          class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="PrivateNotchedOutline-legendLabelled-6"
+            class="PrivateNotchedOutline-legendLabelled-5"
           >
             <span>
               Email
@@ -190,10 +190,10 @@ exports[`SignUp Form matches snapshot 1`] = `
         </div>
         <fieldset
           aria-hidden="true"
-          class="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
+          class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="PrivateNotchedOutline-legendLabelled-6"
+            class="PrivateNotchedOutline-legendLabelled-5"
           >
             <span>
               Password
@@ -254,10 +254,10 @@ exports[`SignUp Form matches snapshot 1`] = `
         </div>
         <fieldset
           aria-hidden="true"
-          class="PrivateNotchedOutline-root-4 MuiOutlinedInput-notchedOutline"
+          class="PrivateNotchedOutline-root-3 MuiOutlinedInput-notchedOutline"
         >
           <legend
-            class="PrivateNotchedOutline-legendLabelled-6"
+            class="PrivateNotchedOutline-legendLabelled-5"
           >
             <span>
               Confirm Password
@@ -279,6 +279,30 @@ exports[`SignUp Form matches snapshot 1`] = `
         Create account
       </span>
     </button>
+    <div
+      class="makeStyles-googleButtonContainer-2"
+    >
+      <p
+        style="font-weight: bold;"
+      >
+        Or
+      </p>
+      <button
+        aria-label="sign in with google"
+        class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="MuiButton-label"
+        >
+          Sign Up With Google
+        </span>
+        <span
+          class="MuiTouchRipple-root"
+        />
+      </button>
+    </div>
   </form>
 </DocumentFragment>
 `;

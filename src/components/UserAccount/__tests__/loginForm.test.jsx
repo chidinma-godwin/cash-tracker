@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react';
 import { useUser } from 'utils/swrHooks';
 import { render, fireEvent, waitFor, screen } from 'testUtils';
 import makeServer from 'testUtils/apiMock';
-import { wrongCredentials } from 'constants/errorMessages';
+import { wrongCredentials, unexpected } from 'constants/errorMessages';
 import LoginForm from '../loginForm';
 
 jest.mock('next-auth/react', () => ({ signIn: jest.fn() }));
@@ -20,15 +20,6 @@ jest.mock('utils/swrHooks', () => ({
 }));
 
 describe('Login Form', () => {
-  const user = {
-    id: '1',
-    username: 'Name',
-    email: 'test@email.com',
-    password: 'secret',
-    clientsEmail: ['client1@email.com'],
-    pendingInvitations: ['invite@email.com'],
-    pendingRequests: ['pending1@email.com', 'pending2@email.com'],
-  };
   const mutateSpy = jest.fn();
   const mockPushSpy = jest.fn();
   let server;
@@ -39,6 +30,7 @@ describe('Login Form', () => {
     mockPushSpy.mockRestore();
     useRouter.mockImplementation(() => ({
       push: mockPushSpy,
+      query: {},
     }));
     useUser.mockImplementation(() => ({ mutate: mutateSpy }));
   });
@@ -173,5 +165,17 @@ describe('Login Form', () => {
       expect(mockPushSpy).toHaveBeenCalledWith('/dashboard');
     });
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+  });
+  it('shows error alert if the url contains an error param', async () => {
+    useRouter.mockReturnValue({
+      push: jest.fn(),
+      query: { error: 'some error' },
+    });
+
+    render(<LoginForm className='' />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent(unexpected);
+    });
   });
 });

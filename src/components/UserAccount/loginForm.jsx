@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -40,6 +40,13 @@ export default function LoginForm({ className }) {
   const classes = useStyles();
   const router = useRouter();
   const emailRef = useRef(null);
+  const { error: errorParam } = router.query;
+
+  useEffect(() => {
+    if (errorParam) {
+      setErrMsg(unexpected);
+    }
+  }, [errorParam]);
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
@@ -80,7 +87,6 @@ export default function LoginForm({ className }) {
             router.push('/dashboard');
           }
         } catch (err) {
-          console.log(err);
           setErrMsg(unexpected);
         }
       }}
@@ -198,6 +204,7 @@ export default function LoginForm({ className }) {
               color='primary'
               onClick={() =>
                 signIn('google', {
+                  redirect: false,
                   callbackUrl: dashboardEndpoint,
                 })
               }

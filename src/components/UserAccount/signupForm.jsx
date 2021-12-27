@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -15,9 +15,14 @@ import { string, object, ref } from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 // CashTracker imports
-import { signupEndpoint, dashboardEndpoint } from 'constants/endpoints';
+import {
+  signupEndpoint,
+  dashboardEndpoint,
+  loginEndpoint,
+} from 'constants/endpoints';
 import { unexpected } from 'constants/errorMessages';
 import apiRequest from 'utils/apiRequest';
 
@@ -42,6 +47,15 @@ export default function SignUpForm({ className }) {
   const classes = useStyles();
   const nameRef = useRef(null);
   const emailRef = useRef(null);
+
+  const router = useRouter();
+  const { error: errorParam } = router.query;
+
+  useEffect(() => {
+    if (errorParam) {
+      setErrMsg(unexpected);
+    }
+  }, [errorParam]);
 
   const togglePassword = () => {
     setShowPassword(!showPassword);
@@ -92,11 +106,19 @@ export default function SignUpForm({ className }) {
         try {
           const { response, err } = await apiRequest(signupEndpoint, values);
           if (response.status === 201) {
-            signIn('credentials', {
+            const { error } = signIn('credentials', {
               email: values.email,
               password: values.password,
-              callbackUrl: dashboardEndpoint,
+              redirect: false,
             });
+            if (error) {
+              setErrMsg(
+                'Account created successfully! Please login to your account'
+              );
+              router.push(loginEndpoint);
+            } else {
+              router.push(dashboardEndpoint);
+            }
           } else if (err) {
             setErrMsg(err);
           }
@@ -270,7 +292,10 @@ export default function SignUpForm({ className }) {
               variant='contained'
               color='primary'
               onClick={() =>
-                signIn('google', { callbackUrl: dashboardEndpoint })
+                signIn('google', {
+                  redirect: false,
+                  callbackUrl: dashboardEndpoint,
+                })
               }
             >
               Sign Up With Google
