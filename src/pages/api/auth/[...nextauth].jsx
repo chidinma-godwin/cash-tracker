@@ -15,15 +15,12 @@ export default NextAuth({
     CredentialsProvider({
       name: 'Username and Password',
       async authorize(credentials) {
-        let user;
         const { response } = await apiRequest(loginEndpoint, credentials);
-        if (response.status === 201) {
-          ({ user } = await response.json());
-        }
+        const { user, message } = await response.json();
         if (user) {
           return user;
         }
-        return null;
+        throw new Error(message);
       },
     }),
   ],
@@ -40,6 +37,7 @@ export default NextAuth({
   },
   callbacks: {
     async signIn({ user }) {
+      console.info(user);
       try {
         const { name, email } = user;
         const { response } = await apiRequest(signupEndpoint, {

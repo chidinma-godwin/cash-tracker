@@ -1,5 +1,6 @@
 // CashTracker Imports
 import User from 'models/User';
+import { wrongCredentials, unexpected } from 'constants/errorMessages';
 
 export async function createUser({
   name,
@@ -32,10 +33,14 @@ export async function createUser({
 }
 
 export async function findUser(email, password) {
-  const currentUser = await User.findOne({ email });
-  if (currentUser && (await currentUser.passwordMatch(password))) {
-    delete currentUser.password;
-    return currentUser;
+  try {
+    const currentUser = await User.findOne({ email });
+    if (currentUser && (await currentUser.passwordMatch(password))) {
+      delete currentUser.password;
+      return { user: currentUser };
+    }
+    return { user: null, message: wrongCredentials };
+  } catch (err) {
+    throw new Error(unexpected);
   }
-  return new Error('Incorrect login credentials');
 }

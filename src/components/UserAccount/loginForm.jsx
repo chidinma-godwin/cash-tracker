@@ -70,11 +70,15 @@ export default function LoginForm({ className }) {
       initialValues={{ email: '', password: '' }}
       onSubmit={async values => {
         try {
-          signIn('credentials', {
+          const { error } = await signIn('credentials', {
             ...values,
-            callbackUrl: dashboardEndpoint,
+            redirect: false,
           });
-          router.push('/dashboard');
+          if (error) {
+            setErrMsg(error);
+          } else {
+            router.push('/dashboard');
+          }
         } catch (err) {
           console.log(err);
           setErrMsg(unexpected);
