@@ -1,14 +1,15 @@
 import userEvent from '@testing-library/user-event';
 import { useRouter } from 'next/router';
-import { Response } from 'miragejs';
+import { signIn } from 'next-auth/react';
 
 // CashTracker imports
 import { useUser } from 'utils/swrHooks';
 import { render, fireEvent, waitFor, screen } from 'testUtils';
 import makeServer from 'testUtils/apiMock';
-import { loginEndpoint } from 'constants/endpoints';
-import { unexpected } from 'constants/errorMessages';
+import { wrongCredentials } from 'constants/errorMessages';
 import LoginForm from '../loginForm';
+
+jest.mock('next-auth/react', () => ({ signIn: jest.fn() }));
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn(),
@@ -42,16 +43,17 @@ describe('Login Form', () => {
     useUser.mockImplementation(() => ({ mutate: mutateSpy }));
   });
   afterEach(() => {
+    signIn.mockRestore();
     server.shutdown();
   });
 
   it('matches snapshot', () => {
-    const { asFragment } = render(<LoginForm />);
+    const { asFragment } = render(<LoginForm className='' />);
 
-    expect(asFragment(<LoginForm />)).toMatchSnapshot();
+    expect(asFragment(<LoginForm className='' />)).toMatchSnapshot();
   });
   it('populates the form with the given values', async () => {
-    render(<LoginForm />);
+    render(<LoginForm className='' />);
 
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');
@@ -69,7 +71,7 @@ describe('Login Form', () => {
     });
   });
   it('sets error on the field if they are touched and left empty and disables the submit button', async () => {
-    render(<LoginForm />);
+    render(<LoginForm className='' />);
 
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');
@@ -77,6 +79,7 @@ describe('Login Form', () => {
 
     userEvent.type(email, '');
     userEvent.type(password, '');
+    fireEvent.blur(email);
     fireEvent.blur(password);
 
     // Ensure error message shows
@@ -89,13 +92,14 @@ describe('Login Form', () => {
     expect(submitButton).toBeDisabled();
   });
   it('sets error on the field and disables the submit button if they have invalid data', async () => {
-    render(<LoginForm />);
+    render(<LoginForm className='' />);
 
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');
     const submitButton = screen.getByRole('button', { name: /submit/i });
 
     userEvent.type(email, 'test@');
+    fireEvent.blur(email);
     userEvent.type(password, '');
     fireEvent.blur(password);
 
@@ -109,7 +113,7 @@ describe('Login Form', () => {
     expect(submitButton).toBeDisabled();
   });
   it('focuses on the input field when the appended icon is clicked', async () => {
-    render(<LoginForm />);
+    render(<LoginForm className='' />);
 
     userEvent.click(screen.getByRole('button', { name: /email/i }));
     await waitFor(() => {
@@ -117,7 +121,7 @@ describe('Login Form', () => {
     });
   });
   it('toggles the password and confirm password field visibility when the appended icon is clicked', () => {
-    render(<LoginForm />);
+    render(<LoginForm className='' />);
 
     const password = screen.getByLabelText('Password');
 
@@ -127,8 +131,8 @@ describe('Login Form', () => {
     expect(password).toHaveAttribute('type', 'text');
   });
   it('shows error alert, does not navigate to dashbord if login request was not successful, and closes the alert when the close button is clicked', async () => {
-    server.post(loginEndpoint, () => new Response(500));
-    render(<LoginForm />);
+    signIn.mockReturnValue({ error: wrongCredentials });
+    render(<LoginForm className='' />);
 
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');
@@ -140,7 +144,7 @@ describe('Login Form', () => {
     userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.getByRole('alert')).toHaveTextContent(unexpected);
+      expect(screen.getByRole('alert')).toHaveTextContent(wrongCredentials);
     });
     expect(mockPushSpy).not.toHaveBeenCalled();
 
@@ -151,10 +155,10 @@ describe('Login Form', () => {
       expect(screen.queryByRole('alert')).not.toBeInTheDocument();
     });
   });
-  it('mutates the user data, redirects to dashboard, and does not show error alert if login request was successful', async () => {
-    server.create('user', user);
+  it('redirects to dashboard, and does not show error alert if login request was successful', async () => {
+    signIn.mockReturnValue({ error: null, ok: true });
 
-    render(<LoginForm />);
+    render(<LoginForm className='' />);
 
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');
@@ -166,9 +170,8 @@ describe('Login Form', () => {
     userEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(mutateSpy).toHaveBeenCalledWith({ user });
+      expect(mockPushSpy).toHaveBeenCalledWith('/dashboard');
     });
-    expect(mockPushSpy).toHaveBeenCalledWith('/dashboard');
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
   });
 });
