@@ -73,7 +73,7 @@ export default NextAuth({
       );
       return {
         ...session,
-        user: { ...user, clientDetails },
+        user: { ...user.toJSON(), clientDetails },
       };
     },
   },
