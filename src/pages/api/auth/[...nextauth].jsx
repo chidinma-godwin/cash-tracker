@@ -7,6 +7,7 @@ import { loginEndpoint, signupEndpoint } from 'constants/endpoints';
 import User from 'models/User';
 import dbConnect from 'utils/dbConnect';
 import apiRequest from 'utils/apiRequest';
+import { getClientDetails } from 'utils/user';
 
 export default NextAuth({
   providers: [
@@ -62,6 +63,18 @@ export default NextAuth({
       } else {
         return true;
       }
+    },
+    async session({ session, token }) {
+      await dbConnect();
+      const user = await User.findOne({ email: token?.email });
+      const clientDetails = await getClientDetails(
+        user.clientsEmail,
+        user.pendingRequests
+      );
+      return {
+        ...session,
+        user: { ...user, clientDetails },
+      };
     },
   },
   debug: false,

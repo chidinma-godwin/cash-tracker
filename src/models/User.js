@@ -15,7 +15,11 @@ const UserSchema = mongoose.Schema({
     required: [true, 'Your email is required'],
     unique: true,
   },
-  password: String,
+  password: {
+    type: String,
+    min: [7, 'Password should have a minimum of 6 characters'],
+    select: false,
+  },
   clientsEmail: [String],
   deletedEmails: [String],
   pendingInvitations: [String],
