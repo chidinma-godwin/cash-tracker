@@ -7,13 +7,6 @@ const handler = nextConnect();
 
 handler
   .use(auth)
-  .use((req, res, next) => {
-    if (!req.user) {
-      res.status(401).send('unauthenticated');
-    } else {
-      next();
-    }
-  })
   .get(async (req, res) => {
     res.json({
       user: req.user,
@@ -21,19 +14,14 @@ handler
   })
   .put(async (req, res) => {
     try {
-      const { updatedUser, clientsDetails, modified, error } = await updateUser(
-        req
-      );
+      const { updatedUser, modified, error } = await updateUser(req);
       if (error) {
         res.status(400).end();
       } else if (!modified) {
         res.status(304).end();
       } else {
         res.json({
-          user: {
-            ...updatedUser,
-            clientsDetails,
-          },
+          user: updatedUser,
         });
       }
     } catch (err) {

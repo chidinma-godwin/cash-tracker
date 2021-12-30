@@ -176,7 +176,7 @@ export async function updateUser(req) {
 
       if (isPendingRequest && action === 'delete') {
         updatedUser = await User.findByIdAndUpdate(
-          req.user.id,
+          req.user._id,
           {
             pendingRequests: req.user.pendingRequests.filter(
               request => request !== clientEmail
@@ -185,11 +185,11 @@ export async function updateUser(req) {
           mongooseOptions
         ).orFail();
       } else if (isPendingRequest && action === 'add') {
-        return { updatedUser: null, clientsDetails: null, modified: false };
+        return { modified: false };
       } else if (isPendingInvitation && action === 'add') {
         const { id, username, email, avatar } = client;
         updatedUser = await User.findByIdAndUpdate(
-          req.user.id,
+          req.user._id,
           {
             pendingInvitations: req.user.pendingInvitations.filter(
               invitation => invitation !== clientEmail
@@ -207,17 +207,17 @@ export async function updateUser(req) {
           invitation => invitation !== clientEmail
         );
         updatedUser = await User.findByIdAndUpdate(
-          req.user.id,
+          req.user._id,
           {
             pendingInvitations: filteredInvitations,
           },
           mongooseOptions
         ).orFail();
       } else if (isClient && action === 'add') {
-        return { updatedUser: null, clientsDetails: null, modified: false };
+        return { modified: false };
       } else if (isClient && action === 'delete') {
         updatedUser = await User.findByIdAndUpdate(
-          req.user.id,
+          req.user._id,
           {
             clientsEmail: req.user.clientsEmail.filter(
               email => email !== clientEmail
@@ -230,7 +230,7 @@ export async function updateUser(req) {
         );
       } else if (!isPendingRequest && action === 'add') {
         updatedUser = await User.findByIdAndUpdate(
-          req.user.id,
+          req.user._id,
           {
             pendingRequests: [...req.user.pendingRequests, clientEmail],
           },
@@ -272,7 +272,7 @@ export async function updateUser(req) {
     // If the user is updating other of their profile but not adding new client
     if (rest) {
       updatedUser = await User.findByIdAndUpdate(
-        req.user.id,
+        req.user._id,
         rest,
         mongooseOptions
       ).orFail();
@@ -282,16 +282,18 @@ export async function updateUser(req) {
       await session.commitTransaction();
       session.endSession();
       return {
-        updatedUser,
-        clientsDetails: modifiedClientsDetails || clientsDetails,
+        updatedUser: {
+          ...updatedUser.toJSON(),
+          clientsDetails: modifiedClientsDetails || clientsDetails,
+        },
         modified: true,
       };
     }
-    return { updatedUser: null, clientsDetails: null, error: true };
+    return { error: true };
   } catch (err) {
     console.log(err);
     await session.abortTransaction();
     session.endSession();
-    return { updatedUser: null, clientsDetails: null, error: true };
+    return { error: true };
   }
 }

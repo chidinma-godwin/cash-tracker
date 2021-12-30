@@ -11,6 +11,11 @@ import Layout from 'components/AppLayout/layout';
 import AddTransactionDialog from 'components/UserDashboard/addTransactionDialog';
 import ClientDetailsList from 'components/UserDashboard/clientDetailsLit';
 import PendingUserList from 'components/UserDashboard/pendingUserList';
+import {
+  getNotModifiedErrMsg,
+  getUpdateSuccessfulMessage,
+  getUpdateFailedMsg,
+} from 'utils/dashboardToastMessages';
 
 export default function Dashboard() {
   const [showDialog, setShowDialog] = useState(false);
@@ -20,7 +25,6 @@ export default function Dashboard() {
 
   const { user, mutate, loading } = useUser();
   const router = useRouter();
-  console.info(user);
 
   useEffect(() => {
     if (!user && !loading) {
@@ -62,19 +66,7 @@ export default function Dashboard() {
         setSuccessMsg('');
         setShowDialog(true);
         setOpenSnackBar(true);
-        if (action === 'add' && type === 'request') {
-          setErrMsg('You have already sent a connection request to this user');
-        } else if (action === 'add') {
-          setErrMsg('You already have an account with this user');
-        } else if (action === 'delete' && type === 'request') {
-          setErrMsg('You have already cancelled your connection request');
-        } else if (action === 'delete' && type === 'account') {
-          setErrMsg('You have already deleted your account with this user');
-        } else {
-          setErrMsg(
-            'You have already declined connection invitation from this user'
-          );
-        }
+        getNotModifiedErrMsg({ type, action, setErrMsg });
       } else if (res.status === 400) {
         setSuccessMsg('');
         setShowDialog(true);
@@ -82,39 +74,18 @@ export default function Dashboard() {
         setErrMsg('There was an error in your input. Please try again');
       } else {
         const resJson = await res.json();
-        if (resJson) {
+        console.info(resJson);
+        if (resJson.user) {
           mutate(resJson);
           setErrMsg('');
           setOpenSnackBar(true);
           setShowDialog(false);
-          if (action === 'add' && type === 'request') {
-            setSuccessMsg('Invitation sent successfully');
-          } else if (action === 'add') {
-            setSuccessMsg('Transaction account successfully confirmed');
-          } else if (action === 'delete' && type === 'request') {
-            setSuccessMsg('Transaction account request cancelled');
-          } else if (action === 'delete' && type === 'account') {
-            setSuccessMsg('Transaction account deleted successfully');
-          } else {
-            setSuccessMsg('Transaction account invitation declined');
-          }
+          getUpdateSuccessfulMessage({ action, type, setSuccessMsg });
           if (resetForm) resetForm();
         } else {
           setSuccessMsg('');
           setOpenSnackBar(true);
-          if (action === 'add' && type === 'request') {
-            setErrMsg('Unable to invite this user. Please try again.');
-          } else if (action === 'add') {
-            setErrMsg('Unable to confirm this account. Please try again.');
-          } else if (action === 'delete' && type === 'request') {
-            setErrMsg('Unable to cancel request. Please try again.');
-          } else if (action === 'delete' && type === 'account') {
-            setErrMsg(
-              'Unable to delete your account with this user. Please try again.'
-            );
-          } else {
-            setErrMsg('Unable to decline this invitation. Please try again.');
-          }
+          getUpdateFailedMsg({ action, type, setErrMsg });
         }
       }
     } catch (err) {

@@ -53,8 +53,15 @@ export default function AddTransactionDialog({
         <Formik
           validationSchema={schema}
           initialValues={{ clientEmail: '', currency: '' }}
-          onSubmit={(values, { resetForm }) => {
-            handleTransactionAccount('', 'add', 'request', values, resetForm);
+          onSubmit={async (values, { resetForm, setSubmitting }) => {
+            await handleTransactionAccount(
+              '',
+              'add',
+              'request',
+              values,
+              resetForm
+            );
+            setSubmitting(false);
           }}
         >
           {({
