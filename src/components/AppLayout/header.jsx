@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ButtonAppBar() {
+export default function Header() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
