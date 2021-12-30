@@ -41,7 +41,7 @@ describe('SignUp Form', () => {
   it('matches snapshot', () => {
     const { asFragment } = render(<SignUpForm className='' />);
 
-    expect(asFragment(<SignUpForm className='' />)).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
   it('populates the form with the given values and removes the disabled prop from the submit button', async () => {
     render(<SignUpForm className='' />);

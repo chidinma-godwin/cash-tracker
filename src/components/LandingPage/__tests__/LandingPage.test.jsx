@@ -17,7 +17,7 @@ describe('LandingPage', () => {
   it('should match snapshot', () => {
     const { asFragment } = render(<LandingPage />);
 
-    expect(asFragment(<LandingPage />)).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
   it('navigates to login page if "Login" button is clicked', () => {
     const { getByTestId } = render(<LandingPage />);

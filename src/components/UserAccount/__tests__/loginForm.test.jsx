@@ -42,7 +42,7 @@ describe('Login Form', () => {
   it('matches snapshot', () => {
     const { asFragment } = render(<LoginForm className='' />);
 
-    expect(asFragment(<LoginForm className='' />)).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
   });
   it('populates the form with the given values', async () => {
     render(<LoginForm className='' />);

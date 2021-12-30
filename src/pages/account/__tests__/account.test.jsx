@@ -16,7 +16,7 @@ describe('Account', () => {
   it('matches snapshot', async () => {
     const { asFragment } = render(<Account />);
     await waitFor(() => {
-      expect(asFragment(<Account />)).toMatchSnapshot();
+      expect(asFragment()).toMatchSnapshot();
     });
   });
   it('sets an "animate" class on the container if its prop is "signup"', async () => {
