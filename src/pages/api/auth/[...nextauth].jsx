@@ -67,13 +67,13 @@ export default NextAuth({
     async session({ session, token }) {
       await dbConnect();
       const user = await User.findOne({ email: token?.email });
-      const clientDetails = await getClientDetails(
+      const clientsDetails = await getClientDetails(
         user.clientsEmail,
         user.pendingRequests
       );
       return {
         ...session,
-        user: { ...user.toJSON(), clientDetails },
+        user: { ...user.toJSON(), clientsDetails },
       };
     },
   },

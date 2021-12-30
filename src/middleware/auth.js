@@ -9,9 +9,14 @@ const auth = nextConnect()
     await dbConnect();
     next();
   })
-  .use(async (req, res) => {
+  .use(async (req, res, next) => {
     const { user } = await getSession({ req });
-    res.send({ user });
+    if (user) {
+      req.user = user;
+      next();
+    } else {
+      res.status(401).end();
+    }
   });
 
 export default auth;
