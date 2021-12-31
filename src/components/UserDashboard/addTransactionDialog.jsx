@@ -83,7 +83,7 @@ export default function AddTransactionDialog({
                       vertical: 'top',
                       horizontal: 'center',
                     }}
-                    autoHideDuration={6000}
+                    autoHideDuration={5000}
                     onClose={handleCloseSnackBar}
                   >
                     <MuiAlert
@@ -103,20 +103,33 @@ export default function AddTransactionDialog({
                 <Autocomplete
                   id='clientEmail'
                   value={values.clientEmail}
+                  autoSelect
                   freeSolo
+                  onClose={e => {
+                    if (
+                      !user.clientsEmail.includes(
+                        e.target.innerText || e.target.defaultValue
+                      )
+                    ) {
+                      setHideFields(true);
+                    } else {
+                      setHideFields(false);
+                    }
+                  }}
                   onChange={(_, newValue) => {
                     if (newValue && newValue.inputValue) {
                       // Create a new value from the user input
-                      setHideFields(true);
                       setFieldValue('clientEmail', newValue.inputValue);
                     } else {
-                      setHideFields(true);
                       setFieldValue('clientEmail', newValue);
                     }
                   }}
                   filterOptions={(options, params) => {
                     const filtered = filter(options, params);
-                    if (params.inputValue !== '') {
+                    if (
+                      params.inputValue !== '' &&
+                      !options.includes(params.inputValue)
+                    ) {
                       filtered.push({
                         inputValue: params.inputValue,
                         email: `Add "${params.inputValue}"`,
@@ -150,11 +163,7 @@ export default function AddTransactionDialog({
                       error={Boolean(errors.clientEmail)}
                       variant='outlined'
                       InputLabelProps={{ shrink: true }}
-                      helperText={
-                        errors.clientEmail &&
-                        touched.clientEmail &&
-                        errors.clientEmail
-                      }
+                      helperText={touched.clientEmail && errors.clientEmail}
                       fullWidth
                     />
                   )}
