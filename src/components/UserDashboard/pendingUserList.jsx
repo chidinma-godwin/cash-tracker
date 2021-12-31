@@ -14,7 +14,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PropTypes from 'prop-types';
 
 export default function PendingUserList({
-  pendingInvitations = [],
+  pendingInvitations,
   handleTransactionAccount,
 }) {
   return (
@@ -92,8 +92,6 @@ export default function PendingUserList({
 }
 
 PendingUserList.propTypes = {
-  pendingInvitations: PropTypes.arrayOf(
-    PropTypes.shape({ email: PropTypes.String })
-  ).isRequired,
+  pendingInvitations: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleTransactionAccount: PropTypes.func.isRequired,
 };
