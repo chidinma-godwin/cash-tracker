@@ -1,0 +1,1160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddTransactionDialog component matches snapshot when showDialog is false 1`] = `
+<body
+  style=""
+>
+  <div />
+</body>
+`;
+
+exports[`AddTransactionDialog component matches snapshot when showDialog is true 1`] = `
+<body
+  style="padding-right: 0px; overflow: hidden;"
+>
+  <div
+    aria-hidden="true"
+  />
+  <div
+    class="MuiDialog-root"
+    role="presentation"
+    style="position: fixed; z-index: 1300; right: 0px; bottom: 0px; top: 0px; left: 0px;"
+  >
+    <div
+      aria-hidden="true"
+      class="MuiBackdrop-root"
+      style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    />
+    <div
+      data-test="sentinelStart"
+      tabindex="0"
+    />
+    <div
+      class="MuiDialog-container MuiDialog-scrollPaper"
+      role="none presentation"
+      style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+      tabindex="-1"
+    >
+      <div
+        aria-labelledby="form-dialog-title"
+        class="MuiPaper-root MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiPaper-elevation24 MuiPaper-rounded"
+        role="dialog"
+      >
+        <div
+          class="MuiDialogTitle-root"
+          id="form-dialog-title"
+        >
+          <h2
+            class="MuiTypography-root MuiTypography-h6"
+          >
+            Add a new account
+          </h2>
+        </div>
+        <form>
+          <div
+            class="MuiDialogContent-root"
+          >
+            
+            <p
+              class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 MuiTypography-colorTextSecondary"
+            >
+              Please enter the email of the user you want to start transactions with.
+            </p>
+            <div
+              aria-expanded="false"
+              class="MuiAutocomplete-root Mui-focused MuiAutocomplete-hasClearIcon"
+              role="combobox"
+            >
+              <div
+                class="MuiFormControl-root MuiTextField-root MuiFormControl-marginDense MuiFormControl-fullWidth"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-marginDense MuiInputLabel-outlined Mui-focused Mui-focused"
+                  data-shrink="true"
+                  for="clientEmail"
+                  id="clientEmail-label"
+                >
+                  Client Email
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiAutocomplete-inputRoot MuiInputBase-fullWidth Mui-focused Mui-focused MuiInputBase-formControl MuiInputBase-adornedEnd MuiOutlinedInput-adornedEnd MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+                >
+                  <input
+                    aria-autocomplete="list"
+                    aria-invalid="false"
+                    autocapitalize="none"
+                    autocomplete="off"
+                    class="MuiInputBase-input MuiOutlinedInput-input MuiAutocomplete-input MuiAutocomplete-inputFocused MuiInputBase-inputAdornedEnd MuiOutlinedInput-inputAdornedEnd MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                    id="clientEmail"
+                    spellcheck="false"
+                    type="email"
+                    value=""
+                  />
+                  <div
+                    class="MuiAutocomplete-endAdornment"
+                  >
+                    <button
+                      aria-label="Clear"
+                      class="MuiButtonBase-root MuiIconButton-root MuiAutocomplete-clearIndicator MuiAutocomplete-clearIndicatorDirty"
+                      tabindex="-1"
+                      title="Clear"
+                      type="button"
+                    >
+                      <span
+                        class="MuiIconButton-label"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="MuiSvgIcon-root MuiSvgIcon-fontSizeSmall"
+                          focusable="false"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+                          />
+                        </svg>
+                      </span>
+                      <span
+                        class="MuiTouchRipple-root"
+                      />
+                    </button>
+                  </div>
+                  <fieldset
+                    aria-hidden="true"
+                    class="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="PrivateNotchedOutline-legendLabelled-3 PrivateNotchedOutline-legendNotched-4"
+                    >
+                      <span>
+                        Client Email
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+            <div
+              class="MuiFormControl-root MuiTextField-root MuiFormControl-marginDense MuiFormControl-fullWidth"
+            >
+              <label
+                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-marginDense MuiInputLabel-outlined"
+                data-shrink="true"
+                for="currency"
+                id="currency-label"
+              >
+                Currency
+              </label>
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-fullWidth MuiInputBase-formControl MuiInputBase-marginDense MuiOutlinedInput-marginDense"
+              >
+                <select
+                  aria-invalid="false"
+                  class="MuiSelect-root MuiSelect-select MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input MuiInputBase-inputMarginDense MuiOutlinedInput-inputMarginDense"
+                  id="currency"
+                >
+                  <option
+                    disabled=""
+                    hidden=""
+                    value=""
+                  >
+                    --Select Currency--
+                  </option>
+                  <option
+                    value="AED"
+                  >
+                    AED (د.إ)
+                  </option>
+                  <option
+                    value="AFN"
+                  >
+                    AFN (؋)
+                  </option>
+                  <option
+                    value="ALL"
+                  >
+                    ALL (L)
+                  </option>
+                  <option
+                    value="AMD"
+                  >
+                    AMD (֏)
+                  </option>
+                  <option
+                    value="ANG"
+                  >
+                    ANG (ƒ)
+                  </option>
+                  <option
+                    value="AOA"
+                  >
+                    AOA (Kz)
+                  </option>
+                  <option
+                    value="ARS"
+                  >
+                    ARS ($)
+                  </option>
+                  <option
+                    value="AUD"
+                  >
+                    AUD ($)
+                  </option>
+                  <option
+                    value="AWG"
+                  >
+                    AWG (ƒ)
+                  </option>
+                  <option
+                    value="AZN"
+                  >
+                    AZN (₼)
+                  </option>
+                  <option
+                    value="BAM"
+                  >
+                    BAM (KM)
+                  </option>
+                  <option
+                    value="BBD"
+                  >
+                    BBD ($)
+                  </option>
+                  <option
+                    value="BDT"
+                  >
+                    BDT (৳)
+                  </option>
+                  <option
+                    value="BGN"
+                  >
+                    BGN (лв)
+                  </option>
+                  <option
+                    value="BHD"
+                  >
+                    BHD (.د.ب)
+                  </option>
+                  <option
+                    value="BIF"
+                  >
+                    BIF (FBu)
+                  </option>
+                  <option
+                    value="BMD"
+                  >
+                    BMD ($)
+                  </option>
+                  <option
+                    value="BND"
+                  >
+                    BND ($)
+                  </option>
+                  <option
+                    value="BOB"
+                  >
+                    BOB ($b)
+                  </option>
+                  <option
+                    value="BOV"
+                  >
+                    BOV (BOV)
+                  </option>
+                  <option
+                    value="BRL"
+                  >
+                    BRL (R$)
+                  </option>
+                  <option
+                    value="BSD"
+                  >
+                    BSD ($)
+                  </option>
+                  <option
+                    value="BTC"
+                  >
+                    BTC (₿)
+                  </option>
+                  <option
+                    value="BTN"
+                  >
+                    BTN (Nu.)
+                  </option>
+                  <option
+                    value="BWP"
+                  >
+                    BWP (P)
+                  </option>
+                  <option
+                    value="BYN"
+                  >
+                    BYN (Br)
+                  </option>
+                  <option
+                    value="BYR"
+                  >
+                    BYR (Br)
+                  </option>
+                  <option
+                    value="BZD"
+                  >
+                    BZD (BZ$)
+                  </option>
+                  <option
+                    value="CAD"
+                  >
+                    CAD ($)
+                  </option>
+                  <option
+                    value="CDF"
+                  >
+                    CDF (FC)
+                  </option>
+                  <option
+                    value="CHE"
+                  >
+                    CHE (CHE)
+                  </option>
+                  <option
+                    value="CHF"
+                  >
+                    CHF (CHF)
+                  </option>
+                  <option
+                    value="CHW"
+                  >
+                    CHW (CHW)
+                  </option>
+                  <option
+                    value="CLF"
+                  >
+                    CLF (CLF)
+                  </option>
+                  <option
+                    value="CLP"
+                  >
+                    CLP ($)
+                  </option>
+                  <option
+                    value="CNY"
+                  >
+                    CNY (¥)
+                  </option>
+                  <option
+                    value="COP"
+                  >
+                    COP ($)
+                  </option>
+                  <option
+                    value="COU"
+                  >
+                    COU (COU)
+                  </option>
+                  <option
+                    value="CRC"
+                  >
+                    CRC (₡)
+                  </option>
+                  <option
+                    value="CUC"
+                  >
+                    CUC ($)
+                  </option>
+                  <option
+                    value="CUP"
+                  >
+                    CUP (₱)
+                  </option>
+                  <option
+                    value="CVE"
+                  >
+                    CVE ($)
+                  </option>
+                  <option
+                    value="CZK"
+                  >
+                    CZK (Kč)
+                  </option>
+                  <option
+                    value="DJF"
+                  >
+                    DJF (Fdj)
+                  </option>
+                  <option
+                    value="DKK"
+                  >
+                    DKK (kr)
+                  </option>
+                  <option
+                    value="DOP"
+                  >
+                    DOP (RD$)
+                  </option>
+                  <option
+                    value="DZD"
+                  >
+                    DZD (دج)
+                  </option>
+                  <option
+                    value="EEK"
+                  >
+                    EEK (kr)
+                  </option>
+                  <option
+                    value="EGP"
+                  >
+                    EGP (£)
+                  </option>
+                  <option
+                    value="ERN"
+                  >
+                    ERN (Nfk)
+                  </option>
+                  <option
+                    value="ETB"
+                  >
+                    ETB (Br)
+                  </option>
+                  <option
+                    value="ETH"
+                  >
+                    ETH (Ξ)
+                  </option>
+                  <option
+                    value="EUR"
+                  >
+                    EUR (€)
+                  </option>
+                  <option
+                    value="FJD"
+                  >
+                    FJD ($)
+                  </option>
+                  <option
+                    value="FKP"
+                  >
+                    FKP (£)
+                  </option>
+                  <option
+                    value="GBP"
+                  >
+                    GBP (£)
+                  </option>
+                  <option
+                    value="GEL"
+                  >
+                    GEL (₾)
+                  </option>
+                  <option
+                    value="GGP"
+                  >
+                    GGP (£)
+                  </option>
+                  <option
+                    value="GHC"
+                  >
+                    GHC (₵)
+                  </option>
+                  <option
+                    value="GHS"
+                  >
+                    GHS (GH₵)
+                  </option>
+                  <option
+                    value="GIP"
+                  >
+                    GIP (£)
+                  </option>
+                  <option
+                    value="GMD"
+                  >
+                    GMD (D)
+                  </option>
+                  <option
+                    value="GNF"
+                  >
+                    GNF (FG)
+                  </option>
+                  <option
+                    value="GTQ"
+                  >
+                    GTQ (Q)
+                  </option>
+                  <option
+                    value="GYD"
+                  >
+                    GYD ($)
+                  </option>
+                  <option
+                    value="HKD"
+                  >
+                    HKD ($)
+                  </option>
+                  <option
+                    value="HNL"
+                  >
+                    HNL (L)
+                  </option>
+                  <option
+                    value="HRK"
+                  >
+                    HRK (kn)
+                  </option>
+                  <option
+                    value="HTG"
+                  >
+                    HTG (G)
+                  </option>
+                  <option
+                    value="HUF"
+                  >
+                    HUF (Ft)
+                  </option>
+                  <option
+                    value="IDR"
+                  >
+                    IDR (Rp)
+                  </option>
+                  <option
+                    value="ILS"
+                  >
+                    ILS (₪)
+                  </option>
+                  <option
+                    value="IMP"
+                  >
+                    IMP (£)
+                  </option>
+                  <option
+                    value="INR"
+                  >
+                    INR (₹)
+                  </option>
+                  <option
+                    value="IQD"
+                  >
+                    IQD (ع.د)
+                  </option>
+                  <option
+                    value="IRR"
+                  >
+                    IRR (﷼)
+                  </option>
+                  <option
+                    value="ISK"
+                  >
+                    ISK (kr)
+                  </option>
+                  <option
+                    value="JEP"
+                  >
+                    JEP (£)
+                  </option>
+                  <option
+                    value="JMD"
+                  >
+                    JMD (J$)
+                  </option>
+                  <option
+                    value="JOD"
+                  >
+                    JOD (JD)
+                  </option>
+                  <option
+                    value="JPY"
+                  >
+                    JPY (¥)
+                  </option>
+                  <option
+                    value="KES"
+                  >
+                    KES (KSh)
+                  </option>
+                  <option
+                    value="KGS"
+                  >
+                    KGS (лв)
+                  </option>
+                  <option
+                    value="KHR"
+                  >
+                    KHR (៛)
+                  </option>
+                  <option
+                    value="KMF"
+                  >
+                    KMF (CF)
+                  </option>
+                  <option
+                    value="KPW"
+                  >
+                    KPW (₩)
+                  </option>
+                  <option
+                    value="KRW"
+                  >
+                    KRW (₩)
+                  </option>
+                  <option
+                    value="KWD"
+                  >
+                    KWD (KD)
+                  </option>
+                  <option
+                    value="KYD"
+                  >
+                    KYD ($)
+                  </option>
+                  <option
+                    value="KZT"
+                  >
+                    KZT (₸)
+                  </option>
+                  <option
+                    value="LAK"
+                  >
+                    LAK (₭)
+                  </option>
+                  <option
+                    value="LBP"
+                  >
+                    LBP (£)
+                  </option>
+                  <option
+                    value="LKR"
+                  >
+                    LKR (₨)
+                  </option>
+                  <option
+                    value="LRD"
+                  >
+                    LRD ($)
+                  </option>
+                  <option
+                    value="LSL"
+                  >
+                    LSL (M)
+                  </option>
+                  <option
+                    value="LTC"
+                  >
+                    LTC (Ł)
+                  </option>
+                  <option
+                    value="LTL"
+                  >
+                    LTL (Lt)
+                  </option>
+                  <option
+                    value="LVL"
+                  >
+                    LVL (Ls)
+                  </option>
+                  <option
+                    value="LYD"
+                  >
+                    LYD (LD)
+                  </option>
+                  <option
+                    value="MAD"
+                  >
+                    MAD (MAD)
+                  </option>
+                  <option
+                    value="MDL"
+                  >
+                    MDL (lei)
+                  </option>
+                  <option
+                    value="MGA"
+                  >
+                    MGA (Ar)
+                  </option>
+                  <option
+                    value="MKD"
+                  >
+                    MKD (ден)
+                  </option>
+                  <option
+                    value="MMK"
+                  >
+                    MMK (K)
+                  </option>
+                  <option
+                    value="MNT"
+                  >
+                    MNT (₮)
+                  </option>
+                  <option
+                    value="MOP"
+                  >
+                    MOP (MOP$)
+                  </option>
+                  <option
+                    value="MRO"
+                  >
+                    MRO (UM)
+                  </option>
+                  <option
+                    value="MRU"
+                  >
+                    MRU (UM)
+                  </option>
+                  <option
+                    value="MUR"
+                  >
+                    MUR (₨)
+                  </option>
+                  <option
+                    value="MVR"
+                  >
+                    MVR (Rf)
+                  </option>
+                  <option
+                    value="MWK"
+                  >
+                    MWK (MK)
+                  </option>
+                  <option
+                    value="MXN"
+                  >
+                    MXN ($)
+                  </option>
+                  <option
+                    value="MXV"
+                  >
+                    MXV (MXV)
+                  </option>
+                  <option
+                    value="MYR"
+                  >
+                    MYR (RM)
+                  </option>
+                  <option
+                    value="MZN"
+                  >
+                    MZN (MT)
+                  </option>
+                  <option
+                    value="NAD"
+                  >
+                    NAD ($)
+                  </option>
+                  <option
+                    value="NGN"
+                  >
+                    NGN (₦)
+                  </option>
+                  <option
+                    value="NIO"
+                  >
+                    NIO (C$)
+                  </option>
+                  <option
+                    value="NOK"
+                  >
+                    NOK (kr)
+                  </option>
+                  <option
+                    value="NPR"
+                  >
+                    NPR (₨)
+                  </option>
+                  <option
+                    value="NZD"
+                  >
+                    NZD ($)
+                  </option>
+                  <option
+                    value="OMR"
+                  >
+                    OMR (﷼)
+                  </option>
+                  <option
+                    value="PAB"
+                  >
+                    PAB (B/.)
+                  </option>
+                  <option
+                    value="PEN"
+                  >
+                    PEN (S/.)
+                  </option>
+                  <option
+                    value="PGK"
+                  >
+                    PGK (K)
+                  </option>
+                  <option
+                    value="PHP"
+                  >
+                    PHP (₱)
+                  </option>
+                  <option
+                    value="PKR"
+                  >
+                    PKR (₨)
+                  </option>
+                  <option
+                    value="PLN"
+                  >
+                    PLN (zł)
+                  </option>
+                  <option
+                    value="PYG"
+                  >
+                    PYG (Gs)
+                  </option>
+                  <option
+                    value="QAR"
+                  >
+                    QAR (﷼)
+                  </option>
+                  <option
+                    value="RMB"
+                  >
+                    RMB (￥)
+                  </option>
+                  <option
+                    value="RON"
+                  >
+                    RON (lei)
+                  </option>
+                  <option
+                    value="RSD"
+                  >
+                    RSD (Дин.)
+                  </option>
+                  <option
+                    value="RUB"
+                  >
+                    RUB (₽)
+                  </option>
+                  <option
+                    value="RWF"
+                  >
+                    RWF (R₣)
+                  </option>
+                  <option
+                    value="SAR"
+                  >
+                    SAR (﷼)
+                  </option>
+                  <option
+                    value="SBD"
+                  >
+                    SBD ($)
+                  </option>
+                  <option
+                    value="SCR"
+                  >
+                    SCR (₨)
+                  </option>
+                  <option
+                    value="SDG"
+                  >
+                    SDG (ج.س.)
+                  </option>
+                  <option
+                    value="SEK"
+                  >
+                    SEK (kr)
+                  </option>
+                  <option
+                    value="SGD"
+                  >
+                    SGD (S$)
+                  </option>
+                  <option
+                    value="SHP"
+                  >
+                    SHP (£)
+                  </option>
+                  <option
+                    value="SLL"
+                  >
+                    SLL (Le)
+                  </option>
+                  <option
+                    value="SOS"
+                  >
+                    SOS (S)
+                  </option>
+                  <option
+                    value="SRD"
+                  >
+                    SRD ($)
+                  </option>
+                  <option
+                    value="SSP"
+                  >
+                    SSP (£)
+                  </option>
+                  <option
+                    value="STD"
+                  >
+                    STD (Db)
+                  </option>
+                  <option
+                    value="STN"
+                  >
+                    STN (Db)
+                  </option>
+                  <option
+                    value="SVC"
+                  >
+                    SVC ($)
+                  </option>
+                  <option
+                    value="SYP"
+                  >
+                    SYP (£)
+                  </option>
+                  <option
+                    value="SZL"
+                  >
+                    SZL (E)
+                  </option>
+                  <option
+                    value="THB"
+                  >
+                    THB (฿)
+                  </option>
+                  <option
+                    value="TJS"
+                  >
+                    TJS (SM)
+                  </option>
+                  <option
+                    value="TMT"
+                  >
+                    TMT (T)
+                  </option>
+                  <option
+                    value="TND"
+                  >
+                    TND (د.ت)
+                  </option>
+                  <option
+                    value="TOP"
+                  >
+                    TOP (T$)
+                  </option>
+                  <option
+                    value="TRL"
+                  >
+                    TRL (₤)
+                  </option>
+                  <option
+                    value="TRY"
+                  >
+                    TRY (₺)
+                  </option>
+                  <option
+                    value="TTD"
+                  >
+                    TTD (TT$)
+                  </option>
+                  <option
+                    value="TVD"
+                  >
+                    TVD ($)
+                  </option>
+                  <option
+                    value="TWD"
+                  >
+                    TWD (NT$)
+                  </option>
+                  <option
+                    value="TZS"
+                  >
+                    TZS (TSh)
+                  </option>
+                  <option
+                    value="UAH"
+                  >
+                    UAH (₴)
+                  </option>
+                  <option
+                    value="UGX"
+                  >
+                    UGX (USh)
+                  </option>
+                  <option
+                    value="USD"
+                  >
+                    USD ($)
+                  </option>
+                  <option
+                    value="UYI"
+                  >
+                    UYI (UYI)
+                  </option>
+                  <option
+                    value="UYU"
+                  >
+                    UYU ($U)
+                  </option>
+                  <option
+                    value="UYW"
+                  >
+                    UYW (UYW)
+                  </option>
+                  <option
+                    value="UZS"
+                  >
+                    UZS (лв)
+                  </option>
+                  <option
+                    value="VEF"
+                  >
+                    VEF (Bs)
+                  </option>
+                  <option
+                    value="VES"
+                  >
+                    VES (Bs.S)
+                  </option>
+                  <option
+                    value="VND"
+                  >
+                    VND (₫)
+                  </option>
+                  <option
+                    value="VUV"
+                  >
+                    VUV (VT)
+                  </option>
+                  <option
+                    value="WST"
+                  >
+                    WST (WS$)
+                  </option>
+                  <option
+                    value="XAF"
+                  >
+                    XAF (FCFA)
+                  </option>
+                  <option
+                    value="XBT"
+                  >
+                    XBT (Ƀ)
+                  </option>
+                  <option
+                    value="XCD"
+                  >
+                    XCD ($)
+                  </option>
+                  <option
+                    value="XOF"
+                  >
+                    XOF (CFA)
+                  </option>
+                  <option
+                    value="XPF"
+                  >
+                    XPF (₣)
+                  </option>
+                  <option
+                    value="XSU"
+                  >
+                    XSU (Sucre)
+                  </option>
+                  <option
+                    value="XUA"
+                  >
+                    XUA (XUA)
+                  </option>
+                  <option
+                    value="YER"
+                  >
+                    YER (﷼)
+                  </option>
+                  <option
+                    value="ZAR"
+                  >
+                    ZAR (R)
+                  </option>
+                  <option
+                    value="ZMW"
+                  >
+                    ZMW (ZK)
+                  </option>
+                  <option
+                    value="ZWD"
+                  >
+                    ZWD (Z$)
+                  </option>
+                  <option
+                    value="ZWL"
+                  >
+                    ZWL ($)
+                  </option>
+                </select>
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M7 10l5 5 5-5z"
+                  />
+                </svg>
+                <fieldset
+                  aria-hidden="true"
+                  class="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    class="PrivateNotchedOutline-legendLabelled-3 PrivateNotchedOutline-legendNotched-4"
+                  >
+                    <span>
+                      Currency
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <div
+            class="MuiDialogActions-root MuiDialogActions-spacing"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                Cancel
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+              tabindex="0"
+              type="submit"
+            >
+              <span
+                class="MuiButton-label"
+              >
+                Add
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div
+      data-test="sentinelEnd"
+      tabindex="0"
+    />
+  </div>
+</body>
+`;
