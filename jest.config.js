@@ -23,4 +23,5 @@ module.exports = {
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
   moduleDirectories: ['src', 'node_modules'],
+  testEnvironment: 'jsdom',
 };
